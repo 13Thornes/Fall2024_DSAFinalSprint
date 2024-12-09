@@ -24,7 +24,7 @@ public class SearchTreeService {
     @Autowired
     private SearchTreeRepository searchTreeRepository;
 
-    private TreeNode insertNode(TreeNode root, int value) {
+    public TreeNode insertNode(TreeNode root, int value) {
         if (root == null) {
             return new TreeNode(value);
         }
@@ -51,11 +51,11 @@ public class SearchTreeService {
         return root;
     }
 
-    private String convertTree(TreeNode root) {
+    public String convertTree(TreeNode root) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return  gson.toJson(root);
     }
-    private void saveTree(String treejson){
+    public void saveTree(String treejson){
         SearchTree searchTree = new SearchTree(treejson);
         searchTreeRepository.save(searchTree);
     }

@@ -13,14 +13,11 @@ public class TreeNode {
 
     private int value;
 
-    @ManyToOne
-    private UserInput userInput;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "left_child_id")
     private TreeNode left;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "right_child_id")
     private TreeNode right;
 
@@ -47,14 +44,6 @@ public class TreeNode {
         this.value = value;
     }
 
-    public UserInput getUserInput() {
-        return userInput;
-    }
-
-    public void setUserInput(UserInput userInput) {
-        this.userInput = userInput;
-    }
-
     public TreeNode getLeft() {
         return left;
     }
@@ -76,7 +65,6 @@ public class TreeNode {
         return "TreeNode{" +
                 "id=" + id +
                 ", value=" + value +
-                ", userInput=" + userInput +
                 ", left=" + left +
                 ", right=" + right +
                 '}';

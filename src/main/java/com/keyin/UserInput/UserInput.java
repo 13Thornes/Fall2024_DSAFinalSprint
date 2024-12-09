@@ -1,5 +1,6 @@
 package com.keyin.UserInput;
 
+import com.keyin.SearchTree.SearchTree;
 import com.keyin.TreeNode.TreeNode;
 import jakarta.persistence.*;
 
@@ -13,22 +14,25 @@ public class UserInput {
     @GeneratedValue(generator = "input_sequence")
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "user_input_numbers", joinColumns = @JoinColumn(name = "user_input_id"))
-    private List<Integer> inputs;
+    private Integer input;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private TreeNode rootNode;
+    private SearchTree searchTree;
 
     public UserInput() {
     }
 
-    public TreeNode getRootNode() {
-        return rootNode;
+    public UserInput(Integer input) {
+        this.input = input;
     }
 
-    public void setRootNode(TreeNode rootNode) {
-        this.rootNode = rootNode;
+
+    public SearchTree getSearchTree() {
+        return searchTree;
+    }
+
+    public void setSearchTree(SearchTree searchTree) {
+        this.searchTree = searchTree;
     }
 
     public Long getId() {
@@ -39,11 +43,11 @@ public class UserInput {
         this.id = id;
     }
 
-    public List<Integer> getInputs() {
-        return inputs;
+    public Integer getInput() {
+        return input;
     }
 
-    public void setInputs(List<Integer> inputs) {
-        this.inputs = inputs;
+    public void setInput(Integer input) {
+        this.input = input;
     }
 }

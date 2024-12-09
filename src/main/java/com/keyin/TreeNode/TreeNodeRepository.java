@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface TreeNodeRepository extends CrudRepository<TreeNode, Long> {
-    List<TreeNode> findByUserInputId(Long userInputId);
 }

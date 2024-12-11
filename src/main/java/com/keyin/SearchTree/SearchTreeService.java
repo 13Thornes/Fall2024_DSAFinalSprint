@@ -2,7 +2,6 @@ package com.keyin.SearchTree;
 
 import com.keyin.TreeNode.TreeNode;
 import com.keyin.TreeNode.TreeNodeRepository;
-import com.keyin.UserInput.UserInput;
 import com.keyin.UserInput.UserInputRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,10 @@ import java.util.List;
 public class SearchTreeService {
 
     @Autowired
-    private UserInputRepository userInputRepository;
-
-    @Autowired
     private TreeNodeRepository treeNodeRepository;
 
     @Autowired
-    private SearchTreeRepository searchTreeRepository;
+    public SearchTreeRepository searchTreeRepository;
 
     public TreeNode insertNode(TreeNode root, int value) {
         if (root == null) {
@@ -39,24 +35,23 @@ public class SearchTreeService {
 
     public TreeNode createSearchTree(List<Integer> numbers) {
         TreeNode root = null;
-        for (int num : numbers) {
-            root = insertNode(root, num);
-            UserInput newInput = new UserInput(num);
-
-
+        for (int number : numbers) {
+            root = insertNode(root, number);
         }
         treeNodeRepository.save(root);
-        String treeJson = convertTree(root);
-        saveTree(treeJson);
+        String[] jsons = convertTree(root, numbers);
+        saveTree(jsons[0], jsons[1]);
         return root;
     }
 
-    public String convertTree(TreeNode root) {
+    public String[] convertTree(TreeNode root, List<Integer> numbers) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return  gson.toJson(root);
+        String treeJSON = gson.toJson(root);
+        String numsJSON = gson.toJson(numbers);
+        return new String[]{treeJSON, numsJSON};
     }
-    public void saveTree(String treejson){
-        SearchTree searchTree = new SearchTree(treejson);
+    public void saveTree(String treeJSON, String numsJSON){
+        SearchTree searchTree = new SearchTree(treeJSON, numsJSON);
         searchTreeRepository.save(searchTree);
     }
 
@@ -65,3 +60,5 @@ public class SearchTreeService {
     }
 
 }
+
+

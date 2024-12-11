@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 public class SearchTree {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,23 +16,23 @@ public class SearchTree {
     @Column(length = 5000)
     private String treeJson;
 
-    @OneToMany
-    private List<UserInput> inputs;
+    private String userInputs;
 
-    public SearchTree(String treeJson) {
+    public SearchTree(String treeJson, String userInputs) {
+
         this.treeJson = treeJson;
+        this.userInputs = userInputs;
     }
 
     public SearchTree() {
 
     }
-
-    public List<UserInput> getInputs() {
-        return inputs;
+    public String getUserInputs() {
+        return userInputs;
     }
 
-    public void setInputs(List<UserInput> inputs) {
-        this.inputs = inputs;
+    public void setUserInputs(String userInputs) {
+        this.userInputs = userInputs;
     }
 
     public String getTreeJson() {
@@ -51,4 +50,5 @@ public class SearchTree {
     public Long getId() {
         return id;
     }
+
 }
